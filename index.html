@@ -219,6 +219,21 @@
     #match.resting svg { animation: none; }
   }
 
+  /* Language toggle */
+  .lang {
+    position: fixed; z-index: 7; top: calc(env(safe-area-inset-top, 0px) + 10px); right: 10px;
+    display: flex; gap: 2px; padding: 3px; border-radius: 999px;
+    background: rgba(7, 11, 31, .6); border: 1px solid rgba(255, 246, 230, .22);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .lang button {
+    font: 600 .88rem/1 "Mukta", system-ui, sans-serif; color: var(--muted);
+    background: transparent; border: 0; border-radius: 999px; padding: 7px 12px; min-height: 32px; cursor: pointer;
+  }
+  body:not(.lit) .lang button { cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--marigold); color: #2a1406; }
+  .lang button:focus-visible { outline: 2px solid var(--flame); outline-offset: 2px; }
+
   /* Controls */
   .controls {
     position: fixed; left: 0; right: 0; z-index: 5;
@@ -358,21 +373,26 @@
 <canvas id="fx"></canvas>
 <div id="toran" aria-hidden="true"></div>
 
+<div class="lang" role="group" data-i18n-aria="langGroup" aria-label="भाषा">
+  <button type="button" data-lang="mr" lang="mr" aria-pressed="true">मराठी</button>
+  <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
+</div>
+
 <main id="stage">
   <button id="bigDiya" type="button" aria-label="दिवा लावा"></button>
   <div class="words">
     <div id="intro">
       <p class="for" id="forLine" hidden></p>
       <h1 id="sentBy">आशिष आणि गौरी यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत</h1>
-      <p class="hint">काडी ओढून वरच्या मोठ्या दिव्याच्या वातीला लावा. आवाज सुरू ठेवा.</p>
+      <p class="hint" data-i18n="hint">काडी ओढून वरच्या मोठ्या दिव्याच्या वातीला लावा. आवाज सुरू ठेवा.</p>
     </div>
     <section id="message" aria-live="polite">
-      <h2 class="shubh line">शुभ दीपावली</h2>
-      <p class="en line">दिवाळीच्या हार्दिक शुभेच्छा!</p>
+      <h2 class="shubh line" data-i18n="shubh">शुभ दीपावली</h2>
+      <p class="en line" data-i18n="subhead">दिवाळीच्या हार्दिक शुभेच्छा!</p>
       <p class="dear line" id="dear" hidden></p>
-      <p class="wish line">दिव्यांच्या या सणात तुमचे घर आनंद, आरोग्य आणि नव्या सुरुवातीच्या गोडव्याने उजळून निघो. तुम्हाला आणि तुमच्या कुटुंबीयांना ही दीपावली सुखाची, समृद्धीची आणि भरभराटीची जावो!</p>
-      <p class="sign line">स्नेहपूर्वक,<strong id="signName">आशिष आणि गौरी</strong></p>
-      <p class="tap line">आणखी फटाक्यांसाठी आकाशात कुठेही टॅप करा.</p>
+      <p class="wish line" data-i18n="wish">दिव्यांच्या या सणात तुमचे घर आनंद, आरोग्य आणि नव्या सुरुवातीच्या गोडव्याने उजळून निघो. तुम्हाला आणि तुमच्या कुटुंबीयांना ही दीपावली सुखाची, समृद्धीची आणि भरभराटीची जावो!</p>
+      <p class="sign line"><span data-i18n="signoff">स्नेहपूर्वक,</span><strong id="signName">आशिष आणि गौरी</strong></p>
+      <p class="tap line" data-i18n="tap">आणखी फटाक्यांसाठी आकाशात कुठेही टॅप करा.</p>
     </section>
   </div>
 </main>
@@ -395,32 +415,32 @@
 
 <div class="controls">
   <button class="btn" id="mute" type="button" aria-pressed="true"><svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.6 6a8.6 8.6 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="muteLabel">Sound on</span></button>
-  <button class="btn primary" id="make" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Share</span></button>
+  <button class="btn primary" id="make" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="share">Share</span></button>
 </div>
 
 <dialog id="composer" aria-labelledby="composerTitle">
   <div class="sheet">
-    <button class="close" id="close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
-    <h2 id="composerTitle">Share</h2>
-    <p class="sub">Send this diya to family and friends. Every link can carry its own names.</p>
+    <button class="close" id="close" type="button" aria-label="Close" data-i18n-aria="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <h2 id="composerTitle" data-i18n="shareTitle">Share</h2>
+    <p class="sub" data-i18n="shareSub">Send this diya to family and friends. Every link can carry its own names.</p>
     <div class="field">
-      <label for="fromIn">From</label>
-      <input id="fromIn" type="text" autocomplete="off" placeholder="आशिष आणि गौरी" maxlength="40">
+      <label for="fromIn" data-i18n="fromLabel">From</label>
+      <input id="fromIn" data-i18n-ph="fromPh" type="text" autocomplete="off" placeholder="आशिष आणि गौरी" maxlength="40">
     </div>
     <div class="field">
-      <label for="toIn">To <span class="opt">(optional)</span></label>
-      <input id="toIn" type="text" autocomplete="off" placeholder="उदा. राहुल आणि कुटुंबीय" maxlength="40">
+      <label for="toIn"><span data-i18n="toLabel">To</span> <span class="opt" data-i18n="optional">(optional)</span></label>
+      <input id="toIn" data-i18n-ph="toPh" type="text" autocomplete="off" placeholder="उदा. राहुल आणि कुटुंबीय" maxlength="40">
     </div>
-    <p class="tip">Type in Devanagari or English.</p>
+    <p class="tip" data-i18n="tip">Type in Devanagari or English.</p>
     <div class="preview">
-      <span class="preview-label">They’ll see</span>
+      <span class="preview-label" data-i18n="theySee">They’ll see</span>
       <p id="pvTo" hidden></p>
       <p id="pvFrom"></p>
     </div>
     <div class="actions">
-      <a class="action wa" id="wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.5-2-1.5-2.4-2.4l.9-1-1-2L9 8.5z" fill="currentColor"/></svg>Send on WhatsApp</a>
-      <button class="action" id="nativeShare" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>More options</button>
-      <button class="action" id="copyLink" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span id="copyLabel">Copy link</span></button>
+      <a class="action wa" id="wa" href="https://wa.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.5-2-1.5-2.4-2.4l.9-1-1-2L9 8.5z" fill="currentColor"/></svg><span data-i18n="wa">Send on WhatsApp</span></a>
+      <button class="action" id="nativeShare" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="more">More options</span></button>
+      <button class="action" id="copyLink" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span id="copyLabel" data-i18n="copy">Copy link</span></button>
     </div>
     <p class="link" id="suffix"></p>
     <p class="sr-only" id="status" role="status"></p>
@@ -435,8 +455,64 @@
     try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title, event: true }); } catch (e) { /* never break the page */ }
   };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DEFAULT_FROM = 'आशिष आणि गौरी';
-  let from = DEFAULT_FROM, to = '';
+  /* ---------- Languages ---------- */
+  const I18N = {
+    mr: {
+      defaultFrom: 'आशिष आणि गौरी',
+      sentBy: f => `${f} यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत`,
+      forLine: t => `${t} यांच्यासाठी`,
+      dear: t => `प्रिय ${t},`,
+      hint: 'काडी ओढून वरच्या मोठ्या दिव्याच्या वातीला लावा. आवाज सुरू ठेवा.',
+      target: 'इथे दिवा लावा',
+      shubh: 'शुभ दीपावली',
+      subhead: 'दिवाळीच्या हार्दिक शुभेच्छा!',
+      wish: 'दिव्यांच्या या सणात तुमचे घर आनंद, आरोग्य आणि नव्या सुरुवातीच्या गोडव्याने उजळून निघो. तुम्हाला आणि तुमच्या कुटुंबीयांना ही दीपावली सुखाची, समृद्धीची आणि भरभराटीची जावो!',
+      signoff: 'स्नेहपूर्वक,',
+      tap: 'आणखी फटाक्यांसाठी आकाशात कुठेही टॅप करा.',
+      lightDiya: 'दिवा लावा', diyaLit: 'दिवा लागला आहे',
+      soundOn: 'आवाज चालू', soundOff: 'आवाज बंद', share: 'शेअर करा',
+      langGroup: 'भाषा', close: 'बंद करा',
+      shareTitle: 'शेअर करा',
+      shareSub: 'हा दिवा कुटुंबीयांना आणि मित्रमैत्रिणींना पाठवा. प्रत्येक लिंकवर वेगळी नावे घालता येतात.',
+      fromLabel: 'कोणाकडून', toLabel: 'कोणासाठी', optional: '(ऐच्छिक)',
+      fromPh: 'आशिष आणि गौरी', toPh: 'उदा. राहुल आणि कुटुंबीय',
+      tip: 'देवनागरी किंवा इंग्रजीत लिहा.',
+      theySee: 'त्यांना असे दिसेल',
+      wa: 'WhatsApp वर पाठवा', more: 'इतर पर्याय',
+      copy: 'लिंक कॉपी करा', copied: 'लिंक कॉपी झाली', copyFallback: 'खालील लिंक कॉपी करा',
+      shareText: (f, link) => `🪔 ${f} यांच्याकडून दिवाळीच्या शुभेच्छा! आवाज सुरू ठेवून उघडा: ${link}`
+    },
+    en: {
+      defaultFrom: 'Ashish and Gouri',
+      sentBy: f => `${f} sent you Diwali wishes`,
+      forLine: t => `For ${t}`,
+      dear: t => `Dear ${t},`,
+      hint: 'Drag the matchstick to the wick of the big diya above. Keep your sound on.',
+      target: 'Light it here',
+      shubh: 'Happy Diwali',
+      subhead: 'Wishing you a joyful Deepavali!',
+      wish: 'In this festival of lights, may your home glow with happiness, good health and the sweetness of new beginnings. Wishing you and your family a Deepavali full of joy, prosperity and abundance!',
+      signoff: 'With love,',
+      tap: 'Tap anywhere in the sky for more fireworks.',
+      lightDiya: 'Light the diya', diyaLit: 'The diya is lit',
+      soundOn: 'Sound on', soundOff: 'Sound off', share: 'Share',
+      langGroup: 'Language', close: 'Close',
+      shareTitle: 'Share',
+      shareSub: 'Send this diya to family and friends. Every link can carry its own names.',
+      fromLabel: 'From', toLabel: 'To', optional: '(optional)',
+      fromPh: 'Ashish and Gouri', toPh: 'e.g. Rahul and family',
+      tip: 'Type in English or Devanagari.',
+      theySee: 'They’ll see',
+      wa: 'Send on WhatsApp', more: 'More options',
+      copy: 'Copy link', copied: 'Link copied', copyFallback: 'Copy the link below',
+      shareText: (f, link) => `🪔 Diwali wishes from ${f}! Open it with sound on: ${link}`
+    }
+  };
+  let lang = 'mr';
+  const tr = k => I18N[lang][k];
+  const defaultFrom = () => tr('defaultFrom');
+  let from = '', to = '', linkLang = '';
+  const fromName = () => from || defaultFrom();
   let lit = false;
 
   /* ---------- Names from the link ---------- */
@@ -500,17 +576,19 @@
   function readHash() {
     const h = location.hash.slice(1);
     const parts = h.includes('--to--') ? h.split('--to--') : h.split('.');
-    from = readName(parts[0]) || DEFAULT_FROM;
+    from = readName(parts[0]);
     to = readName(parts[1] || '');
+    linkLang = parts[2] === 'en' ? 'en' : '';
   }
   function render() {
-    $('#sentBy').textContent = `${from} यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत`;
-    $('#forLine').textContent = to ? `${to} यांच्यासाठी` : '';
+    const f = fromName();
+    $('#sentBy').textContent = tr('sentBy')(f);
+    $('#forLine').textContent = to ? tr('forLine')(to) : '';
     $('#forLine').hidden = !to;
-    $('#dear').textContent = to ? `प्रिय ${to},` : '';
+    $('#dear').textContent = to ? tr('dear')(to) : '';
     $('#dear').hidden = !to;
-    $('#signName').textContent = from;
-    document.title = `${from} यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत`;
+    $('#signName').textContent = f;
+    document.title = tr('sentBy')(f);
   }
 
   /* ---------- Diya artwork ---------- */
@@ -531,7 +609,7 @@
       <ellipse cx="60" cy="100" rx="22" ry="5" fill="#5a1f0c"/>
     </svg>`;
 
-  $('#bigDiya').innerHTML = diyaSVG() + '<span class="target"><span class="target-label">इथे दिवा लावा</span></span>';
+  $('#bigDiya').innerHTML = diyaSVG() + '<span class="target"><span class="target-label" data-i18n="target">इथे दिवा लावा</span></span>';
 
   function buildRow() {
     const row = $('#row');
@@ -974,7 +1052,7 @@
     if (!matchLit) strike();
     match.classList.remove('resting');
     const big = $('#bigDiya');
-    big.setAttribute('aria-label', 'दिवा लागला आहे');
+    big.setAttribute('aria-label', tr('diyaLit'));
     setTimeout(() => {
       big.classList.add('on');
       document.body.classList.add('lit');
@@ -1026,7 +1104,7 @@
   }
   window.addEventListener('pointermove', e => { if (!lit) moveMatch(e); });
   window.addEventListener('pointerdown', e => {
-    if (lit || e.target.closest('dialog')) return;
+    if (lit || e.target.closest('dialog, .lang')) return;
     strikeMatch();
     moveMatch(e);
   });
@@ -1042,7 +1120,7 @@
   $('#mute').addEventListener('click', () => {
     muted = !muted;
     if (ac) master.gain.setTargetAtTime(muted ? 0 : .85, ac.currentTime, .05);
-    $('#muteLabel').textContent = muted ? 'Sound off' : 'Sound on';
+    $('#muteLabel').textContent = tr(muted ? 'soundOff' : 'soundOn');
     $('#mute').classList.toggle('off', muted);
     $('#mute').setAttribute('aria-pressed', String(!muted));
   });
@@ -1052,29 +1130,30 @@
   const clean = v => v.trim().replace(/\s+/g, ' ');
   const currentSlug = () => {
     const f = slug($('#fromIn').value), t = slug($('#toIn').value);
+    if (lang === 'en') return `${f}.${t}.en`;
     return t ? `${f}.${t}` : f;
   };
   const fullLink = () => { const s = currentSlug(); return s ? `${BASE}#${s}` : BASE; };
-  const nameFrom = () => clean($('#fromIn').value) || DEFAULT_FROM;
-  const shareText = () => `🪔 ${nameFrom()} यांच्याकडून दिवाळीच्या शुभेच्छा! आवाज सुरू ठेवून उघडा: ${fullLink()}`;
+  const nameFrom = () => clean($('#fromIn').value) || defaultFrom();
+  const shareText = () => tr('shareText')(nameFrom(), fullLink());
   let copyTimer;
   function resetCopy() {
     clearTimeout(copyTimer);
     $('#copyLink').classList.remove('done');
-    $('#copyLabel').textContent = 'Copy link';
+    $('#copyLabel').textContent = tr('copy');
   }
   function updateShare() {
     const t = clean($('#toIn').value);
-    $('#pvTo').textContent = t ? `प्रिय ${t},` : '';
+    $('#pvTo').textContent = t ? tr('dear')(t) : '';
     $('#pvTo').hidden = !t;
-    $('#pvFrom').textContent = `${nameFrom()} यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत`;
+    $('#pvFrom').textContent = tr('sentBy')(nameFrom());
     $('#suffix').textContent = fullLink();
     $('#wa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText());
     resetCopy();
   }
   $('#make').addEventListener('click', () => {
     track('share-opened', 'Share opened');
-    $('#fromIn').value = from === DEFAULT_FROM ? '' : from;
+    $('#fromIn').value = from;
     $('#toIn').value = '';
     updateShare();
     composer.showModal();
@@ -1094,13 +1173,13 @@
     if (ok) {
       track('share-copy', 'Link copied');
       $('#copyLink').classList.add('done');
-      $('#copyLabel').textContent = 'Link copied';
-      $('#status').textContent = 'Link copied';
+      $('#copyLabel').textContent = tr('copied');
+      $('#status').textContent = tr('copied');
       copyTimer = setTimeout(resetCopy, 2200);
     } else {
       const r = document.createRange(); r.selectNodeContents($('#suffix'));
       const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
-      $('#copyLabel').textContent = 'Copy the link below';
+      $('#copyLabel').textContent = tr('copyFallback');
     }
   }
   $('#copyLink').addEventListener('click', copyLink);
@@ -1117,7 +1196,27 @@
   $('#close').addEventListener('click', () => composer.close());
   composer.addEventListener('click', e => { if (e.target === composer) composer.close(); });
 
-  window.addEventListener('hashchange', () => { readHash(); render(); });
+  function setLang(l, save) {
+    lang = I18N[l] ? l : 'mr';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tr(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = tr(el.dataset.i18nPh); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', tr(el.dataset.i18nAria)); });
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    $('#bigDiya').setAttribute('aria-label', tr(lit ? 'diyaLit' : 'lightDiya'));
+    $('#muteLabel').textContent = tr(muted ? 'soundOff' : 'soundOn');
+    render();
+    if (composer.open) updateShare();
+    if (save) { try { localStorage.setItem('diwali-lang', lang); } catch (e) { /* private mode */ } }
+    requestAnimationFrame(restMatch);
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.lang === lang) return;
+    setLang(b.dataset.lang, true);
+    track('language-' + lang, lang === 'en' ? 'Switched to English' : 'Switched to Marathi');
+  }));
+
+  window.addEventListener('hashchange', () => { readHash(); if (linkLang) setLang(linkLang); else render(); });
   document.addEventListener('visibilitychange', () => {
     if (!ac) return;
     if (document.hidden) ac.suspend(); else ac.resume();
@@ -1125,7 +1224,11 @@
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { resize(); restMatch(); }, 150); });
 
-  readHash(); render(); resize(); restMatch();
+  readHash();
+  let savedLang = '';
+  try { savedLang = localStorage.getItem('diwali-lang') || ''; } catch (e) { savedLang = ''; }
+  setLang(linkLang || savedLang || 'mr');
+  resize(); restMatch();
   if (document.fonts) document.fonts.ready.then(restMatch);
 })();
 </script>
