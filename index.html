@@ -237,7 +237,14 @@
   .controls {
     position: fixed; left: 0; right: 0; z-index: 5;
     bottom: 0; padding: 0 10px calc(env(safe-area-inset-bottom, 0px) + 12px);
-    display: flex; justify-content: center; align-items: center; gap: 8px;
+    /* three columns with equal outer columns keep the language switch exactly centred */
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+  }
+  .controls #mute { justify-self: end; }
+  .controls #make { justify-self: start; }
+  .controls #mute, .controls #make {
+    width: clamp(5.8rem, calc((100vw - 158px) / 2), 9rem);
+    justify-content: center; padding: 0 10px; white-space: nowrap; overflow: hidden;
   }
   /* The language switch is there from the start; Sound and Share fade in once the diya is lit */
   .controls #mute, .controls #make {
@@ -248,10 +255,15 @@
     opacity: 1; transform: none; visibility: visible; pointer-events: auto;
     transition: opacity .8s ease, transform .8s ease;
   }
-  /* Narrow phones: Sound shows just its icon so all three fit on one line */
+  /* Phones: slightly smaller text so Sound and Share keep their labels at equal widths */
   @media (max-width: 419px) {
-    #muteLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    #mute { padding-left: 12px; padding-right: 12px; }
+    .controls .btn { font-size: .86rem; gap: 6px; }
+    .lang button { padding: 0 9px; }
+  }
+  /* Very small phones: both buttons become equal icon-only circles */
+  @media (max-width: 349px) {
+    .controls #mute span, .controls #make span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .controls #mute, .controls #make { width: 42px; padding: 0; }
   }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; min-height: 42px;
