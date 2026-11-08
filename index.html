@@ -347,10 +347,18 @@
   .tip { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
   .sheet-lang { margin-top: 10px; }
   .sheet-lang .lang { width: 100%; height: 44px; }
-  .spell { margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--marigold); }
-  .spell label { display: flex; align-items: center; gap: 6px; font-weight: 400; font-size: .82rem; color: var(--muted); margin-bottom: 4px; }
-  .spell label svg { width: 14px; height: 14px; flex: none; }
-  .spell input { padding: 8px 10px; font-size: 1rem; }
+  /* English name and its spelling in the chosen language, side by side */
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 6px; }
+  .pair.both { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }   /* two equal boxes */
+  .pair input { width: 100%; min-width: 0; }
+  .spell { display: contents; }
+  .spell .arrow { width: 16px; height: 16px; color: var(--marigold); animation: spellIn .35s ease; }
+  .field .spell input { border-style: dashed; border-color: rgba(246, 168, 33, .55); animation: spellIn .35s ease; }
+  .spell input.swap { animation: swap .4s ease; }
+  @keyframes spellIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+  @keyframes swap { 0% { opacity: .15; transform: translateY(4px); } 100% { opacity: 1; transform: none; } }
+  @media (max-width: 400px) { .pair input { font-size: .98rem; padding-left: 10px; padding-right: 10px; } }
+  @media (prefers-reduced-motion: reduce) { .spell .arrow, .field .spell input, .spell input.swap { animation: none; } }
   .preview {
     margin-top: 16px; padding: 14px 16px; border-radius: 14px; text-align: center;
     background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)); border: 1px solid var(--panel-line);
@@ -480,18 +488,16 @@
     </div>
     <div class="field">
       <label for="fromIn" data-i18n="fromLabel">From</label>
-      <input id="fromIn" data-i18n-ph="fromPh" type="text" autocomplete="off" placeholder="आशिष आणि गौरी" maxlength="40">
-      <div class="spell" id="fromSpRow" hidden>
-        <label for="fromSp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span data-i18n="spellIn"></span></label>
-        <input id="fromSp" type="text" autocomplete="off" maxlength="40">
+      <div class="pair">
+        <input id="fromIn" data-i18n-ph="fromPh" type="text" autocomplete="off" placeholder="आशिष आणि गौरी" maxlength="40">
+        <div class="spell" id="fromSpRow" hidden><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><input id="fromSp" type="text" autocomplete="off" maxlength="40" data-i18n-aria="spellIn" aria-label=""></div>
       </div>
     </div>
     <div class="field">
       <label for="toIn"><span data-i18n="toLabel">To</span> <span class="opt" data-i18n="optional">(optional)</span></label>
-      <input id="toIn" data-i18n-ph="toPh" type="text" autocomplete="off" placeholder="उदा. राहुल आणि कुटुंबीय" maxlength="40">
-      <div class="spell" id="toSpRow" hidden>
-        <label for="toSp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span data-i18n="spellIn"></span></label>
-        <input id="toSp" type="text" autocomplete="off" maxlength="40">
+      <div class="pair">
+        <input id="toIn" data-i18n-ph="toPh" type="text" autocomplete="off" placeholder="उदा. राहुल आणि कुटुंबीय" maxlength="40">
+        <div class="spell" id="toSpRow" hidden><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><input id="toSp" type="text" autocomplete="off" maxlength="40" data-i18n-aria="spellIn" aria-label=""></div>
       </div>
     </div>
     <p class="tip" data-i18n="tip">Type in Devanagari or English.</p>
@@ -1580,10 +1586,24 @@
     const m = clean(main.value);
     const show = lang !== 'en' && isLatin(m);
     row.hidden = !show;
+    row.parentElement.classList.toggle('both', show);
+    fitText(main);
     if (!show) return;
     sp.lang = lang;
     if (document.activeElement === sp) return;
-    sp.value = sp.dataset.edited === '1' ? displayName(sp.value) : displayName(m);
+    const next = sp.dataset.edited === '1' ? displayName(sp.value) : displayName(m);
+    if (next !== sp.value) {
+      sp.value = next;
+      if (sp._lang && sp._lang !== lang) { sp.classList.remove('swap'); void sp.offsetWidth; sp.classList.add('swap'); }
+    }
+    sp._lang = lang;
+    fitText(sp);
+  }
+  // shrink the text a little when a long name doesn't fit its half of the line
+  function fitText(el) {
+    el.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth + 1 && size > 12) { size -= .5; el.style.fontSize = size + 'px'; }
   }
   let copyTimer;
   function resetCopy() {
