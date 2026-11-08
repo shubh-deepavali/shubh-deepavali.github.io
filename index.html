@@ -330,6 +330,8 @@
     #message .line { transition-duration: .3s; }
   }
 </style>
+<!-- Visit counting: GoatCounter, no cookies. The #names part of a link is never sent. -->
+<script data-goatcounter="https://shubh-deepavali.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -429,6 +431,9 @@
 <script>
 (() => {
   const $ = s => document.querySelector(s);
+  const track = (path, title) => {
+    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title, event: true }); } catch (e) { /* never break the page */ }
+  };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const DEFAULT_FROM = 'आशिष आणि गौरी';
   let from = DEFAULT_FROM, to = '';
@@ -964,6 +969,7 @@
     if (lit) return;
     lit = true; litAt = performance.now();
     document.documentElement.classList.remove('prelit');
+    track('diya-lit', 'Diya lit');
     initAudio();
     if (!matchLit) strike();
     match.classList.remove('resting');
@@ -1067,6 +1073,7 @@
     resetCopy();
   }
   $('#make').addEventListener('click', () => {
+    track('share-opened', 'Share opened');
     $('#fromIn').value = from === DEFAULT_FROM ? '' : from;
     $('#toIn').value = '';
     updateShare();
@@ -1085,6 +1092,7 @@
       } catch (e2) { ok = false; }
     }
     if (ok) {
+      track('share-copy', 'Link copied');
       $('#copyLink').classList.add('done');
       $('#copyLabel').textContent = 'Link copied';
       $('#status').textContent = 'Link copied';
@@ -1099,12 +1107,13 @@
   if (navigator.share) {
     $('#nativeShare').hidden = false;
     $('#nativeShare').addEventListener('click', async () => {
-      try { await navigator.share({ text: shareText() }); }
+      try { await navigator.share({ text: shareText() }); track('share-native', 'Shared via phone menu'); }
       catch (e) { if (e && e.name !== 'AbortError') copyLink(); }
     });
   } else {
     $('#copyLink').classList.add('wide');
   }
+  $('#wa').addEventListener('click', () => track('share-whatsapp', 'Sent on WhatsApp'));
   $('#close').addEventListener('click', () => composer.close());
   composer.addEventListener('click', e => { if (e.target === composer) composer.close(); });
 
