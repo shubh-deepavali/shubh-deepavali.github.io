@@ -17,7 +17,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600&family=Tiro+Devanagari+Marathi&family=Tiro+Devanagari+Hindi&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Serif+Gujarati:wght@500&family=Noto+Sans+Kannada:wght@400;600&family=Tiro+Kannada&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600&family=Tiro+Devanagari+Marathi&family=Tiro+Devanagari+Hindi&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Serif+Gujarati:wght@500&family=Noto+Sans+Kannada:wght@400;600&family=Tiro+Kannada&family=Tiro+Telugu&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --head: "Tiro Devanagari Marathi";
@@ -68,7 +68,7 @@
       radial-gradient(120% 60% at 50% 115%, var(--horizon) 0%, transparent 60%),
       linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
     background-color: var(--sky-top);
-    font-family: "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans", "Segoe UI", system-ui, sans-serif;
+    font-family: "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", "Noto Sans", "Segoe UI", system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
   }
@@ -136,7 +136,7 @@
   body.lit #intro { opacity: 0; transform: translateY(-6px); pointer-events: none; visibility: hidden; transition: opacity .7s ease, transform .7s ease, visibility 0s .7s; }
   .for { margin: 0 0 6px; color: var(--flame); font-size: 1.05rem; letter-spacing: .02em; }
   #sentBy {
-    margin: 0; font-family: var(--head), "Tiro Kannada", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", Georgia, serif; font-weight: 400;
+    margin: 0; font-family: var(--head), "Tiro Kannada", "Tiro Telugu", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", Georgia, serif; font-weight: 400;
     font-size: clamp(1.4rem, 5.6vw, 2.05rem); line-height: 1.4; text-wrap: balance;
     text-shadow: 0 2px 18px rgba(0, 0, 0, .45);
   }
@@ -152,11 +152,11 @@
   #message.show .line:nth-child(5) { transition-delay: 1.9s; }
   #message.show .line:nth-child(6) { transition-delay: 3.2s; }
   .shubh {
-    margin: 0; font-family: var(--head), "Tiro Kannada", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", serif; font-weight: 400;
+    margin: 0; font-family: var(--head), "Tiro Kannada", "Tiro Telugu", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", serif; font-weight: 400;
     font-size: clamp(2.6rem, 11vw, 4.2rem); line-height: 1.15; color: var(--flame);
     text-shadow: 0 0 28px rgba(255, 176, 60, .55), 0 2px 10px rgba(0, 0, 0, .4);
   }
-  .en { margin: 2px 0 0; font-family: var(--head), "Tiro Kannada", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", serif; font-size: clamp(1.15rem, 4.4vw, 1.45rem); }
+  .en { margin: 2px 0 0; font-family: var(--head), "Tiro Kannada", "Tiro Telugu", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", serif; font-size: clamp(1.15rem, 4.4vw, 1.45rem); }
   .dear { margin: 18px 0 4px; font-size: 1.1rem; color: var(--flame); }
   .wish {
     margin: 14px auto 0; max-width: 32ch; font-size: clamp(1.02rem, 3.9vw, 1.18rem); line-height: 1.6;
@@ -164,7 +164,7 @@
   }
   .dear + .wish { margin-top: 0; }
   .sign { margin: 16px 0 0; color: var(--muted); font-size: 1rem; line-height: 1.4; }
-  .sign strong { display: block; color: var(--text); font-family: var(--head), "Tiro Kannada", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", serif; font-weight: 400; font-size: 1.3rem; }
+  .sign strong { display: block; color: var(--text); font-family: var(--head), "Tiro Kannada", "Tiro Telugu", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", serif; font-weight: 400; font-size: 1.3rem; }
   .tap { margin: 16px 0 0; color: var(--muted); font-size: .92rem; opacity: .85; }
 
   /* Row of diyas */
@@ -206,8 +206,9 @@
   .target::after { animation-delay: 1s; }
   @keyframes ping { 0% { transform: scale(.4); opacity: .95; } 100% { transform: scale(1.6); opacity: 0; } }
   .target-label {
-    position: absolute; right: 36px; top: -15px; white-space: nowrap;
-    font: 600 .95rem/1.1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", sans-serif; color: #2a1406; background: var(--flame);
+    position: absolute; right: 36px; top: 0; transform: translateY(-50%);
+    width: max-content; max-width: calc(50vw - 60px); text-align: center;
+    font: 600 .95rem/1.1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", sans-serif; color: #2a1406; background: var(--flame);
     padding: 6px 11px; border-radius: 999px; box-shadow: 0 4px 16px rgba(0, 0, 0, .35);
   }
   .target-label::after {
@@ -242,7 +243,7 @@
   .lang-track::before, .lang-track::after { content: ""; flex: 0 0 50%; }
   .lang button {
     flex: none; scroll-snap-align: center; touch-action: pan-x;
-    font: 600 .9rem/1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif;
+    font: 600 .9rem/1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", system-ui, sans-serif;
     color: var(--muted); opacity: .7; background: transparent; border: 0;
     padding: 0 9px 4px; height: 100%; cursor: pointer; white-space: nowrap;
     transition: color .2s ease, opacity .2s ease;
@@ -285,7 +286,7 @@
   }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; min-height: 42px;
-    font: 600 .95rem/1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif; color: var(--text);
+    font: 600 .95rem/1 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", system-ui, sans-serif; color: var(--text);
     background: rgba(255, 246, 230, .1); border: 1px solid rgba(255, 246, 230, .28);
     padding: 10px 16px; border-radius: 999px; cursor: pointer;
     backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
@@ -332,13 +333,13 @@
   .close:hover { background: rgba(255, 246, 230, .16); }
   .close:focus-visible { outline: 3px solid var(--marigold); outline-offset: 2px; }
   .close svg { width: 20px; height: 20px; }
-  .sheet h2 { margin: 0 52px 4px 0; font: 600 1.35rem/1.25 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif; }
+  .sheet h2 { margin: 0 52px 4px 0; font: 600 1.35rem/1.25 "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", system-ui, sans-serif; }
   .sub { margin: 0 0 6px; color: var(--muted); font-size: .95rem; line-height: 1.45; }
   .field { margin-top: 14px; }
   .field label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: 6px; }
   .opt { font-weight: 400; color: var(--muted); }
   .field input {
-    width: 100%; font: 400 1.05rem "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif; color: var(--text);
+    width: 100%; font: 400 1.05rem "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", system-ui, sans-serif; color: var(--text);
     background: var(--field); border: 1px solid var(--panel-line); border-radius: 12px; padding: 11px 12px;
   }
   .field input::placeholder { color: rgba(220, 203, 233, .5); }
@@ -349,7 +350,7 @@
     background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)); border: 1px solid var(--panel-line);
   }
   .preview-label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 6px; }
-  .preview p { margin: 0; font-family: var(--head), "Tiro Kannada", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", serif; line-height: 1.45; }
+  .preview p { margin: 0; font-family: var(--head), "Tiro Kannada", "Tiro Telugu", "Noto Serif Gujarati", "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", serif; line-height: 1.45; }
   #pvTo { color: var(--flame); margin-bottom: 2px; }
   #pvFrom { font-size: 1.06rem; }
   .actions { display: grid; gap: 10px; margin-top: 16px; }
@@ -360,7 +361,7 @@
   .action {
     display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 16px;
     border-radius: 14px; border: 1px solid var(--panel-line); background: rgba(255, 246, 230, .06);
-    color: var(--text); font: 600 1rem "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif; text-decoration: none; cursor: pointer;
+    color: var(--text); font: 600 1rem "Mukta", "Noto Sans Gujarati", "Noto Sans Kannada", "Noto Sans Telugu", system-ui, sans-serif; text-decoration: none; cursor: pointer;
   }
   .action:hover { background: rgba(255, 246, 230, .12); }
   .action:focus-visible { outline: 3px solid var(--marigold); outline-offset: 2px; }
@@ -457,6 +458,7 @@
       <button type="button" role="radio" data-lang="hi" lang="hi" aria-checked="false" tabindex="-1">हिंदी</button>
       <button type="button" role="radio" data-lang="gu" lang="gu" aria-checked="false" tabindex="-1">ગુજરાતી</button>
       <button type="button" role="radio" data-lang="kn" lang="kn" aria-checked="false" tabindex="-1">ಕನ್ನಡ</button>
+      <button type="button" role="radio" data-lang="te" lang="te" aria-checked="false" tabindex="-1">తెలుగు</button>
     </div>
   </div>
   <button class="btn primary" id="make" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="share">Share</span></button>
@@ -630,6 +632,32 @@
       wa: 'WhatsApp ನಲ್ಲಿ ಕಳುಹಿಸಿ', more: 'ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು',
       copy: 'ಲಿಂಕ್ ನಕಲಿಸಿ', copied: 'ಲಿಂಕ್ ನಕಲಾಯಿತು', copyFallback: 'ಕೆಳಗಿನ ಲಿಂಕ್ ನಕಲಿಸಿ',
       shareText: (f, link) => `🪔 ${f} ಅವರಿಂದ ದೀಪಾವಳಿಯ ಶುಭಾಶಯಗಳು! ಧ್ವನಿ ಆನ್ ಇಟ್ಟು ತೆರೆಯಿರಿ: ${link}`
+    },
+    te: {
+      name: 'తెలుగు',
+      defaultFrom: 'ఆశిష్ మరియు గౌరి',
+      sentBy: f => `${f} నుండి మీకు దీపావళి శుభాకాంక్షలు`,
+      forLine: t => `${t} కోసం`,
+      dear: t => `ప్రియమైన ${t},`,
+      hint: 'అగ్గిపుల్లను లాగి పైన ఉన్న పెద్ద దీపం వత్తికి తాకించండి. శబ్దాన్ని ఆన్‌లో ఉంచండి.',
+      target: 'ఇక్కడ వెలిగించండి',
+      shubh: 'శుభ దీపావళి',
+      subhead: 'దీపావళి హార్దిక శుభాకాంక్షలు!',
+      wish: 'ఈ వెలుగుల పండుగలో మీ ఇల్లు ఆనందం, మంచి ఆరోగ్యం మరియు కొత్త ఆరంభాల తీపితో వెలిగిపోవాలి. మీకు, మీ కుటుంబానికి సుఖసంతోషాలు, సిరిసంపదలతో నిండిన దీపావళి శుభాకాంక్షలు!',
+      signoff: 'ప్రేమతో,',
+      tap: 'మరిన్ని బాణసంచా కోసం ఆకాశంలో ఎక్కడైనా తాకండి.',
+      lightDiya: 'దీపం వెలిగించండి', diyaLit: 'దీపం వెలిగింది',
+      soundOn: 'శబ్దం ఆన్', soundOff: 'శబ్దం ఆఫ్', share: 'షేర్ చేయండి',
+      langGroup: 'భాష', close: 'మూసివేయండి',
+      shareTitle: 'షేర్ చేయండి',
+      shareSub: 'ఈ దీపాన్ని కుటుంబ సభ్యులకు, స్నేహితులకు పంపండి. ప్రతి లింక్‌లో వేర్వేరు పేర్లు రాయవచ్చు.',
+      fromLabel: 'ఎవరి నుండి', toLabel: 'ఎవరి కోసం', optional: '(ఐచ్ఛికం)',
+      fromPh: 'ఆశిష్ మరియు గౌరి', toPh: 'ఉదా. రాహుల్ మరియు కుటుంబం',
+      tip: 'తెలుగు, దేవనాగరి లేదా ఇంగ్లీష్‌లో రాయండి.',
+      theySee: 'వారికి ఇలా కనిపిస్తుంది',
+      wa: 'WhatsApp లో పంపండి', more: 'మరిన్ని ఎంపికలు',
+      copy: 'లింక్ కాపీ చేయండి', copied: 'లింక్ కాపీ అయింది', copyFallback: 'కింది లింక్‌ను కాపీ చేయండి',
+      shareText: (f, link) => `🪔 ${f} నుండి దీపావళి శుభాకాంక్షలు! శబ్దం ఆన్ చేసి తెరవండి: ${link}`
     }
   };
   let lang = 'mr';
@@ -684,44 +712,49 @@
       return vals.map(chOf).join('').replace(/[<>]/g, '').trim().slice(0, 60);
     } catch (e) { return ''; }
   }
-  const WIDE_BLOCKS = [0x900, 0xA80, 0xC80];           // Devanagari, Gujarati, Kannada (append only)
-  const WSYM = BigInt(WIDE_BLOCKS.length * 128 + 1 + 94 + 2);
-  const wideSym = ch => {
-    const c = ch.codePointAt(0), base = WIDE_BLOCKS.length * 128;
-    for (let i = 0; i < WIDE_BLOCKS.length; i++) if (c >= WIDE_BLOCKS[i] && c < WIDE_BLOCKS[i] + 128) return i * 128 + (c - WIDE_BLOCKS[i]);
-    if (c === 32) return base;
-    if (c >= 33 && c <= 126) return base + 1 + (c - 33);
-    if (c === 0x200C) return base + 95;
-    if (c === 0x200D) return base + 96;
-    return -1;
-  };
-  const wideChar = v => {
-    const base = WIDE_BLOCKS.length * 128;
-    if (v < base) return String.fromCodePoint(WIDE_BLOCKS[Math.floor(v / 128)] + (v % 128));
-    if (v === base) return ' ';
-    if (v <= base + 94) return String.fromCharCode(33 + v - base - 1);
-    return v === base + 95 ? '\u200C' : '\u200D';
-  };
-  function packWide(str) {
-    let n = 1n;
-    for (const ch of str) { const v = wideSym(ch); if (v < 0) return null; n = n * WSYM + BigInt(v); }
-    let out = '';
-    while (n > 0n) { out = B62[Number(n % 62n)] + out; n /= 62n; }
-    return '~' + out;
+  function wideCodec(blocks) {
+    const base = blocks.length * 128, N = BigInt(base + 1 + 94 + 2);
+    const sym = ch => {
+      const c = ch.codePointAt(0);
+      for (let i = 0; i < blocks.length; i++) if (c >= blocks[i] && c < blocks[i] + 128) return i * 128 + (c - blocks[i]);
+      if (c === 32) return base;
+      if (c >= 33 && c <= 126) return base + 1 + (c - 33);
+      if (c === 0x200C) return base + 95;
+      if (c === 0x200D) return base + 96;
+      return -1;
+    };
+    const chr = v => {
+      if (v < base) return String.fromCodePoint(blocks[Math.floor(v / 128)] + (v % 128));
+      if (v === base) return ' ';
+      if (v <= base + 94) return String.fromCharCode(33 + v - base - 1);
+      return v === base + 95 ? '\u200C' : '\u200D';
+    };
+    return {
+      pack(str) {
+        let n = 1n;
+        for (const ch of str) { const v = sym(ch); if (v < 0) return null; n = n * N + BigInt(v); }
+        let out = '';
+        while (n > 0n) { out = B62[Number(n % 62n)] + out; n /= 62n; }
+        return out;
+      },
+      unpack(code) {
+        try {
+          let n = 0n;
+          for (const ch of code) { const i = B62.indexOf(ch); if (i < 0) return ''; n = n * 62n + BigInt(i); }
+          const vals = [];
+          while (n >= N) { vals.unshift(Number(n % N)); n /= N; }
+          if (n !== 1n) return '';
+          return vals.map(chr).join('').replace(/[<>]/g, '').trim().slice(0, 60);
+        } catch (e) { return ''; }
+      }
+    };
   }
-  function unpackWide(code) {
-    try {
-      let n = 0n;
-      for (const ch of code) { const i = B62.indexOf(ch); if (i < 0) return ''; n = n * 62n + BigInt(i); }
-      const vals = [];
-      while (n >= WSYM) { vals.unshift(Number(n % WSYM)); n /= WSYM; }
-      if (n !== 1n) return '';
-      return vals.map(wideChar).join('').replace(/[<>]/g, '').trim().slice(0, 60);
-    } catch (e) { return ''; }
-  }
+  const WIDE_V1 = wideCodec([0x900, 0xA80, 0xC80]);                                            // "~"  Gujarati, Kannada
+  const WIDE_V2 = wideCodec([0x900, 0x980, 0xA00, 0xA80, 0xB00, 0xB80, 0xC00, 0xC80, 0xD00]);  // "~~" all major Indian scripts
   const readName = p => {
     p = p || '';
-    if (p.startsWith('~')) return unpackWide(p.slice(1));
+    if (p.startsWith('~~')) return WIDE_V2.unpack(p.slice(2));
+    if (p.startsWith('~')) return WIDE_V1.unpack(p.slice(1));
     if (p.startsWith('_')) return unpackName(p.slice(1));
     if (p.startsWith('u8-')) return fromHex(p.slice(3));   // links sent before this change
     return unslug(p);
@@ -729,7 +762,10 @@
   const slug = raw => {
     const s = (raw || '').trim().replace(/\s+/g, ' ').slice(0, 40);
     if (!s) return '';
-    if (/[^\x00-\x7F]/.test(s)) return packName(s) || packWide(s) || toHex(s);
+    if (/[^\x00-\x7F]/.test(s)) {
+      const v1 = WIDE_V1.pack(s), v2 = v1 ? null : WIDE_V2.pack(s);
+      return packName(s) || (v1 && '~' + v1) || (v2 && '~~' + v2) || toHex(s);
+    }
     return s.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).filter(Boolean).join('-');
   };
 
@@ -741,13 +777,84 @@
     to = readName(parts[1] || '');
     linkLang = parts[2] && parts[2] !== 'mr' && I18N[parts[2]] ? parts[2] : '';
   }
+  /* ---------- Names follow the selected script ----------
+     Devanagari, Gujarati and Kannada share one Unicode layout, so a name typed in one can be
+     rewritten letter by letter in another. English-typed names stay as typed. */
+  const SCRIPT_BASE = { mr: 0x900, hi: 0x900, gu: 0xA80, kn: 0xC80, te: 0xC00 };
+  const INDIC = [0x900, 0xA80, 0xC80, 0xC00];
+  const DRAVIDIAN = new Set([0xC80, 0xC00]);   // short/long e and o, halant at the end of names
+  const SRC_KEEP = { 0xC80: new Set([0x55, 0x56, 0x5D]), 0xC00: new Set([0x55, 0x56, 0x58, 0x59, 0x5A, 0x5D, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F]) };
+  const TO_COMMON = { 0x900: {}, 0xA80: {}, 0xC80: { 0x0E: 0x0F, 0x12: 0x13, 0x46: 0x47, 0x4A: 0x4B, 0x5E: 0x33 }, 0xC00: { 0x0E: 0x0F, 0x12: 0x13, 0x46: 0x47, 0x4A: 0x4B } };
+  const FROM_COMMON = {
+    0x900: {},
+    0xA80: { 0x0E: 0x0F, 0x12: 0x13, 0x29: 0x28, 0x31: 0x30, 0x34: 0x33, 0x46: 0x47, 0x4A: 0x4B },
+    0xC80: { 0x0D: 0x0F, 0x11: 0x06, 0x29: 0x28, 0x31: 0x30, 0x34: 0x33, 0x45: 0x47, 0x49: 0x3E },
+    0xC00: { 0x0D: 0x0F, 0x11: 0x06, 0x29: 0x28, 0x31: 0x30, 0x45: 0x47, 0x49: 0x3E }
+  };
+  const KEEP = {   // signs with no counterpart: leave the original character
+    0x900: new Set(),
+    0xA80: new Set([0x00, 0x04, 0x3A, 0x3B, 0x4E, 0x4F, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F, 0x64, 0x65, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78]),
+    0xC00: new Set([0x3A, 0x3B, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F, 0x64, 0x65, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F]),
+    0xC80: new Set([0x3A, 0x3B, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5F, 0x64, 0x65, 0x70, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F])
+  };
+  const CONNECTORS = ['आणि', 'और', 'અને', 'ಮತ್ತು', 'మరియు', 'and', 'And', 'AND', '&'];
+  const CONNECT_TO = { mr: 'आणि', hi: 'और', gu: 'અને', kn: 'ಮತ್ತು', te: 'మరియు' };
+  const FAMILY = ['कुटुंबीय', 'कुटुंब', 'परिवार', 'પરિવાર', 'કુટુંબ', 'ಕುಟುಂಬ', 'ಪರಿವಾರ', 'కుటుంబం', 'కుటుంబ', 'family', 'Family'];
+  const FAMILY_TO = { mr: 'कुटुंबीय', hi: 'परिवार', gu: 'પરિવાર', kn: 'ಕುಟುಂಬ', te: 'కుటుంబం' };
+  function convertWord(word, tgt) {
+    const out = []; let changed = false, fromDravidian = false;
+    for (const ch of word.normalize('NFD')) {
+      const c = ch.codePointAt(0);
+      const src = INDIC.find(b => c >= b && c < b + 128);
+      if (src === undefined || src === tgt || (SRC_KEEP[src] && SRC_KEEP[src].has(c - src))) { out.push(c); continue; }
+      changed = true; if (DRAVIDIAN.has(src)) fromDravidian = true;
+      const off = TO_COMMON[src][c - src] ?? (c - src);
+      const fix = FROM_COMMON[tgt][off];
+      if (fix !== undefined) out.push(tgt + fix);
+      else if (KEEP[tgt].has(off)) out.push(c);
+      else out.push(tgt + off);
+    }
+    if (changed) {
+      const V = 0x4D, offAt = i => out[i] - tgt, isCons = o => o >= 0x15 && o <= 0x39;
+      const n = out.length;
+      if (DRAVIDIAN.has(tgt) && n > 1) {
+        // Kannada writes a final long ī/ū short (गौरी → ಗೌರಿ) ...
+        if (offAt(n - 1) === 0x40) out[n - 1] = tgt + 0x3F;
+        else if (offAt(n - 1) === 0x42) out[n - 1] = tgt + 0x41;
+        // ... and ends a consonant-final name with a halant (आशिष → ಆಶಿಷ್), but not after a conjunct (कृष्ण)
+        let k = n - 1; if (offAt(k) === 0x3C) k--;
+        if (k >= 0 && isCons(offAt(k)) && !(k > 0 && offAt(k - 1) === V)) out.push(tgt + V);
+      } else if (n > 1 && out[n - 1] === tgt + V) {
+        out.pop();     // Marathi, Hindi and Gujarati names don't end in a halant (ಆಶಿಷ್ → आशिष)
+      }
+      // Marathi writes a final i/u long (ಗೌರಿ → गौरी)
+      if (fromDravidian && lang === 'mr' && out.length > 1) {
+        const last = out.length - 1;
+        if (out[last] === tgt + 0x3F) out[last] = tgt + 0x40;
+        else if (out[last] === tgt + 0x41) out[last] = tgt + 0x42;
+      }
+    }
+    return String.fromCodePoint(...out).normalize('NFC');
+  }
+  function displayName(name) {
+    const tgt = SCRIPT_BASE[lang];
+    if (!name || !tgt || !/[\u0900-\u097F\u0A80-\u0AFF\u0C00-\u0C7F\u0C80-\u0CFF]/.test(name)) return name;
+    return name.split(/(\s+)/).map(w => {
+      if (!w || /^\s+$/.test(w)) return w;
+      if (w === 'व') return (lang === 'mr' || lang === 'hi') ? w : CONNECT_TO[lang];
+      if (CONNECTORS.includes(w)) return CONNECT_TO[lang];
+      if (FAMILY.includes(w)) return FAMILY_TO[lang];
+      return convertWord(w, tgt);
+    }).join('');
+  }
+
   function render() {
-    const f = fromName();
+    const f = displayName(fromName()), t = displayName(to);
     $('#sentBy').textContent = tr('sentBy')(f);
-    $('#forLine').textContent = to ? tr('forLine')(to) : '';
-    $('#forLine').hidden = !to;
-    $('#dear').textContent = to ? tr('dear')(to) : '';
-    $('#dear').hidden = !to;
+    $('#forLine').textContent = t ? tr('forLine')(t) : '';
+    $('#forLine').hidden = !t;
+    $('#dear').textContent = t ? tr('dear')(t) : '';
+    $('#dear').hidden = !t;
     $('#signName').textContent = f;
     document.title = tr('sentBy')(f);
   }
@@ -1296,7 +1403,7 @@
   };
   const fullLink = () => { const s = currentSlug(); return s ? `${BASE}#${s}` : BASE; };
   const nameFrom = () => clean($('#fromIn').value) || defaultFrom();
-  const shareText = () => tr('shareText')(nameFrom(), fullLink());
+  const shareText = () => tr('shareText')(displayName(nameFrom()), fullLink());
   let copyTimer;
   function resetCopy() {
     clearTimeout(copyTimer);
@@ -1305,9 +1412,9 @@
   }
   function updateShare() {
     const t = clean($('#toIn').value);
-    $('#pvTo').textContent = t ? tr('dear')(t) : '';
+    $('#pvTo').textContent = t ? tr('dear')(displayName(t)) : '';
     $('#pvTo').hidden = !t;
-    $('#pvFrom').textContent = tr('sentBy')(nameFrom());
+    $('#pvFrom').textContent = tr('sentBy')(displayName(nameFrom()));
     $('#suffix').textContent = fullLink();
     $('#wa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText());
     resetCopy();
