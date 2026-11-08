@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="mr" class="prelit">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -68,7 +68,7 @@
     background-color: var(--sky-top);
     font-family: "Mukta", "Noto Sans", "Segoe UI", system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
   }
   canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   #stars { z-index: 0; }
@@ -187,6 +187,9 @@
   #match.struck .mflame { opacity: 1; transform: scale(1); animation: flicker 1.1s ease-in-out .3s infinite; }
   body.lit #match { opacity: 0; }
   body:not(.lit) { touch-action: none; }
+  /* Until the diya is lit, a finger drag moves the match instead of scrolling the page */
+  .prelit, .prelit body, .prelit #stage, .prelit #bigDiya { touch-action: none; }
+  .prelit #stage { overflow: hidden; }
   @media (pointer: fine) { body:not(.lit), body:not(.lit) #bigDiya { cursor: none; } }
   #row { transition: opacity 1s ease; }
   body:not(.lit) #row { opacity: .3; }
@@ -960,6 +963,7 @@
   function light() {
     if (lit) return;
     lit = true; litAt = performance.now();
+    document.documentElement.classList.remove('prelit');
     initAudio();
     if (!matchLit) strike();
     match.classList.remove('resting');
