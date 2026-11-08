@@ -221,14 +221,13 @@
 
   /* Language toggle */
   .lang {
-    position: fixed; z-index: 7; top: calc(env(safe-area-inset-top, 0px) + 10px); right: 10px;
-    display: flex; gap: 2px; padding: 3px; border-radius: 999px;
+    display: flex; gap: 2px; padding: 3px; border-radius: 999px; flex: none;
     background: rgba(7, 11, 31, .6); border: 1px solid rgba(255, 246, 230, .22);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
   .lang button {
     font: 600 .88rem/1 "Mukta", system-ui, sans-serif; color: var(--muted);
-    background: transparent; border: 0; border-radius: 999px; padding: 7px 12px; min-height: 32px; cursor: pointer;
+    background: transparent; border: 0; border-radius: 999px; padding: 0 12px; min-height: 34px; cursor: pointer;
   }
   body:not(.lit) .lang button { cursor: pointer; }
   .lang button[aria-pressed="true"] { background: var(--marigold); color: #2a1406; }
@@ -237,12 +236,23 @@
   /* Controls */
   .controls {
     position: fixed; left: 0; right: 0; z-index: 5;
-    bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-    display: flex; justify-content: center; gap: 10px;
-    opacity: 0; transform: translateY(8px); pointer-events: none;
+    bottom: 0; padding: 0 10px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+  }
+  /* The language switch is there from the start; Sound and Share fade in once the diya is lit */
+  .controls #mute, .controls #make {
+    opacity: 0; transform: translateY(8px); visibility: hidden; pointer-events: none;
+    transition: opacity .8s ease, transform .8s ease, visibility 0s .8s;
+  }
+  .controls.show #mute, .controls.show #make {
+    opacity: 1; transform: none; visibility: visible; pointer-events: auto;
     transition: opacity .8s ease, transform .8s ease;
   }
-  .controls.show { opacity: 1; transform: none; pointer-events: auto; }
+  /* Narrow phones: Sound shows just its icon so all three fit on one line */
+  @media (max-width: 419px) {
+    #muteLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    #mute { padding-left: 12px; padding-right: 12px; }
+  }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; min-height: 42px;
     font: 600 .95rem/1 "Mukta", system-ui, sans-serif; color: var(--text);
@@ -373,11 +383,6 @@
 <canvas id="fx"></canvas>
 <div id="toran" aria-hidden="true"></div>
 
-<div class="lang" role="group" data-i18n-aria="langGroup" aria-label="भाषा">
-  <button type="button" data-lang="mr" lang="mr" aria-pressed="true">मराठी</button>
-  <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
-</div>
-
 <main id="stage">
   <button id="bigDiya" type="button" aria-label="दिवा लावा"></button>
   <div class="words">
@@ -415,6 +420,10 @@
 
 <div class="controls">
   <button class="btn" id="mute" type="button" aria-pressed="true"><svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.6 6a8.6 8.6 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="muteLabel">Sound on</span></button>
+  <div class="lang" role="group" data-i18n-aria="langGroup" aria-label="भाषा">
+    <button type="button" data-lang="mr" lang="mr" aria-pressed="true">मराठी</button>
+    <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
+  </div>
   <button class="btn primary" id="make" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="share">Share</span></button>
 </div>
 
