@@ -345,6 +345,12 @@
   .field input::placeholder { color: rgba(220, 203, 233, .5); }
   .field input:focus-visible { outline: 2px solid var(--marigold); outline-offset: 1px; border-color: transparent; }
   .tip { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
+  .sheet-lang { margin-top: 10px; }
+  .sheet-lang .lang { width: 100%; height: 44px; }
+  .spell { margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--marigold); }
+  .spell label { display: flex; align-items: center; gap: 6px; font-weight: 400; font-size: .82rem; color: var(--muted); margin-bottom: 4px; }
+  .spell label svg { width: 14px; height: 14px; flex: none; }
+  .spell input { padding: 8px 10px; font-size: 1rem; }
   .preview {
     margin-top: 16px; padding: 14px 16px; border-radius: 14px; text-align: center;
     background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)); border: 1px solid var(--panel-line);
@@ -469,13 +475,24 @@
     <button class="close" id="close" type="button" aria-label="Close" data-i18n-aria="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
     <h2 id="composerTitle" data-i18n="shareTitle">Share</h2>
     <p class="sub" data-i18n="shareSub">Send this diya to family and friends. Every link can carry its own names.</p>
+    <div class="sheet-lang">
+      <div class="lang"><div class="lang-track" id="sheetTrack" role="radiogroup" data-i18n-aria="langGroup" aria-label="भाषा"></div></div>
+    </div>
     <div class="field">
       <label for="fromIn" data-i18n="fromLabel">From</label>
       <input id="fromIn" data-i18n-ph="fromPh" type="text" autocomplete="off" placeholder="आशिष आणि गौरी" maxlength="40">
+      <div class="spell" id="fromSpRow" hidden>
+        <label for="fromSp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span data-i18n="spellIn"></span></label>
+        <input id="fromSp" type="text" autocomplete="off" maxlength="40">
+      </div>
     </div>
     <div class="field">
       <label for="toIn"><span data-i18n="toLabel">To</span> <span class="opt" data-i18n="optional">(optional)</span></label>
       <input id="toIn" data-i18n-ph="toPh" type="text" autocomplete="off" placeholder="उदा. राहुल आणि कुटुंबीय" maxlength="40">
+      <div class="spell" id="toSpRow" hidden>
+        <label for="toSp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span data-i18n="spellIn"></span></label>
+        <input id="toSp" type="text" autocomplete="off" maxlength="40">
+      </div>
     </div>
     <p class="tip" data-i18n="tip">Type in Devanagari or English.</p>
     <div class="preview">
@@ -505,6 +522,7 @@
   const I18N = {
     mr: {
       name: 'मराठी',
+      spellIn: 'मराठीत असे लिहिले जाईल — बदलू शकता',
       defaultFrom: 'आशिष आणि गौरी',
       sentBy: f => `${f} यांनी तुम्हाला दिवाळीच्या शुभेच्छा पाठवल्या आहेत`,
       forLine: t => `${t} यांच्यासाठी`,
@@ -523,7 +541,7 @@
       shareSub: 'हा दिवा कुटुंबीयांना आणि मित्रमैत्रिणींना पाठवा. प्रत्येक लिंकवर वेगळी नावे घालता येतात.',
       fromLabel: 'कोणाकडून', toLabel: 'कोणासाठी', optional: '(ऐच्छिक)',
       fromPh: 'आशिष आणि गौरी', toPh: 'उदा. राहुल आणि कुटुंबीय',
-      tip: 'देवनागरी किंवा इंग्रजीत लिहा.',
+      tip: 'इंग्रजीत लिहिलेली नावे निवडलेल्या भाषेत आपोआप लिहिली जातात.',
       theySee: 'त्यांना असे दिसेल',
       wa: 'WhatsApp वर पाठवा', more: 'इतर पर्याय',
       copy: 'लिंक कॉपी करा', copied: 'लिंक कॉपी झाली', copyFallback: 'खालील लिंक कॉपी करा',
@@ -531,6 +549,7 @@
     },
     en: {
       name: 'English',
+      spellIn: 'Spelling',
       defaultFrom: 'Ashish and Gouri',
       sentBy: f => `${f} sent you Diwali wishes`,
       forLine: t => `For ${t}`,
@@ -549,7 +568,7 @@
       shareSub: 'Send this diya to family and friends. Every link can carry its own names.',
       fromLabel: 'From', toLabel: 'To', optional: '(optional)',
       fromPh: 'Ashish and Gouri', toPh: 'e.g. Rahul and family',
-      tip: 'Type in English or Devanagari.',
+      tip: 'Type names in English or any Indian script.',
       theySee: 'They’ll see',
       wa: 'Send on WhatsApp', more: 'More options',
       copy: 'Copy link', copied: 'Link copied', copyFallback: 'Copy the link below',
@@ -557,6 +576,7 @@
     },
     hi: {
       name: 'हिंदी',
+      spellIn: 'हिंदी में ऐसे लिखा जाएगा — बदल सकते हैं',
       defaultFrom: 'आशिष और गौरी',
       sentBy: f => `${f} ने आपको दिवाली की शुभकामनाएँ भेजी हैं`,
       forLine: t => `${t} के लिए`,
@@ -575,7 +595,7 @@
       shareSub: 'यह दीया परिवार और दोस्तों को भेजें। हर लिंक पर अलग नाम लिखे जा सकते हैं।',
       fromLabel: 'किसकी ओर से', toLabel: 'किसके लिए', optional: '(वैकल्पिक)',
       fromPh: 'आशिष और गौरी', toPh: 'जैसे, राहुल और परिवार',
-      tip: 'देवनागरी या अंग्रेज़ी में लिखें।',
+      tip: 'अंग्रेज़ी में लिखे नाम चुनी हुई भाषा में अपने आप लिखे जाते हैं।',
       theySee: 'उन्हें ऐसा दिखेगा',
       wa: 'WhatsApp पर भेजें', more: 'और विकल्प',
       copy: 'लिंक कॉपी करें', copied: 'लिंक कॉपी हो गया', copyFallback: 'नीचे दिया लिंक कॉपी करें',
@@ -583,6 +603,7 @@
     },
     gu: {
       name: 'ગુજરાતી',
+      spellIn: 'ગુજરાતીમાં આ રીતે લખાશે — બદલી શકો છો',
       defaultFrom: 'આશિષ અને ગૌરી',
       sentBy: f => `${f} તરફથી તમને દિવાળીની શુભેચ્છાઓ`,
       forLine: t => `${t} માટે`,
@@ -601,7 +622,7 @@
       shareSub: 'આ દીવો પરિવાર અને મિત્રોને મોકલો. દરેક લિંકમાં અલગ નામ લખી શકાય છે.',
       fromLabel: 'કોના તરફથી', toLabel: 'કોના માટે', optional: '(વૈકલ્પિક)',
       fromPh: 'આશિષ અને ગૌરી', toPh: 'દા.ત. રાહુલ અને પરિવાર',
-      tip: 'ગુજરાતી, દેવનાગરી કે અંગ્રેજીમાં લખો.',
+      tip: 'અંગ્રેજીમાં લખેલાં નામ પસંદ કરેલી ભાષામાં આપમેળે લખાઈ જાય છે.',
       theySee: 'તેમને આવું દેખાશે',
       wa: 'WhatsApp પર મોકલો', more: 'વધુ વિકલ્પો',
       copy: 'લિંક કૉપિ કરો', copied: 'લિંક કૉપિ થઈ ગઈ', copyFallback: 'નીચેની લિંક કૉપિ કરો',
@@ -609,6 +630,7 @@
     },
     kn: {
       name: 'ಕನ್ನಡ',
+      spellIn: 'ಕನ್ನಡದಲ್ಲಿ ಹೀಗೆ ಬರೆಯಲಾಗುತ್ತದೆ — ಬದಲಿಸಬಹುದು',
       defaultFrom: 'ಆಶಿಷ್ ಮತ್ತು ಗೌರಿ',
       sentBy: f => `${f} ಅವರಿಂದ ನಿಮಗೆ ದೀಪಾವಳಿಯ ಶುಭಾಶಯಗಳು`,
       forLine: t => `${t} ಅವರಿಗಾಗಿ`,
@@ -627,7 +649,7 @@
       shareSub: 'ಈ ದೀಪವನ್ನು ಕುಟುಂಬ ಮತ್ತು ಸ್ನೇಹಿತರಿಗೆ ಕಳುಹಿಸಿ. ಪ್ರತಿಯೊಂದು ಲಿಂಕ್‌ನಲ್ಲಿ ಬೇರೆ ಬೇರೆ ಹೆಸರುಗಳನ್ನು ಬರೆಯಬಹುದು.',
       fromLabel: 'ಯಾರಿಂದ', toLabel: 'ಯಾರಿಗೆ', optional: '(ಐಚ್ಛಿಕ)',
       fromPh: 'ಆಶಿಷ್ ಮತ್ತು ಗೌರಿ', toPh: 'ಉದಾ. ರಾಹುಲ್ ಮತ್ತು ಕುಟುಂಬ',
-      tip: 'ಕನ್ನಡ, ದೇವನಾಗರಿ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಬರೆಯಿರಿ.',
+      tip: 'ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಬರೆದ ಹೆಸರುಗಳು ಆಯ್ಕೆ ಮಾಡಿದ ಭಾಷೆಯಲ್ಲಿ ತಾನಾಗಿ ಬರೆಯಲ್ಪಡುತ್ತವೆ.',
       theySee: 'ಅವರಿಗೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ',
       wa: 'WhatsApp ನಲ್ಲಿ ಕಳುಹಿಸಿ', more: 'ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು',
       copy: 'ಲಿಂಕ್ ನಕಲಿಸಿ', copied: 'ಲಿಂಕ್ ನಕಲಾಯಿತು', copyFallback: 'ಕೆಳಗಿನ ಲಿಂಕ್ ನಕಲಿಸಿ',
@@ -635,6 +657,7 @@
     },
     te: {
       name: 'తెలుగు',
+      spellIn: 'తెలుగులో ఇలా రాయబడుతుంది — మార్చవచ్చు',
       defaultFrom: 'ఆశిష్ మరియు గౌరి',
       sentBy: f => `${f} నుండి మీకు దీపావళి శుభాకాంక్షలు`,
       forLine: t => `${t} కోసం`,
@@ -653,7 +676,7 @@
       shareSub: 'ఈ దీపాన్ని కుటుంబ సభ్యులకు, స్నేహితులకు పంపండి. ప్రతి లింక్‌లో వేర్వేరు పేర్లు రాయవచ్చు.',
       fromLabel: 'ఎవరి నుండి', toLabel: 'ఎవరి కోసం', optional: '(ఐచ్ఛికం)',
       fromPh: 'ఆశిష్ మరియు గౌరి', toPh: 'ఉదా. రాహుల్ మరియు కుటుంబం',
-      tip: 'తెలుగు, దేవనాగరి లేదా ఇంగ్లీష్‌లో రాయండి.',
+      tip: 'ఇంగ్లీష్‌లో రాసిన పేర్లు ఎంచుకున్న భాషలో ఆటోమేటిక్‌గా రాయబడతాయి.',
       theySee: 'వారికి ఇలా కనిపిస్తుంది',
       wa: 'WhatsApp లో పంపండి', more: 'మరిన్ని ఎంపికలు',
       copy: 'లింక్ కాపీ చేయండి', copied: 'లింక్ కాపీ అయింది', copyFallback: 'కింది లింక్‌ను కాపీ చేయండి',
@@ -663,8 +686,10 @@
   let lang = 'mr';
   const tr = k => I18N[lang][k];
   const defaultFrom = () => tr('defaultFrom');
-  let from = '', to = '', linkLang = '';
-  const fromName = () => from || defaultFrom();
+  let from = { lat: '', ind: '' }, to = { lat: '', ind: '' }, linkLang = '';
+  // English mode shows the English name; Indian languages show the corrected spelling if the sender gave one,
+  // otherwise the name converted into that script.
+  const shown = o => !o || (!o.lat && !o.ind) ? '' : (lang === 'en' ? (o.lat || o.ind) : displayName(o.ind || o.lat));
   let lit = false;
 
   /* ---------- Names from the link ---------- */
@@ -769,12 +794,20 @@
     return s.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).filter(Boolean).join('-');
   };
 
+  // A name part is either one name (English or Indian script) or "English-name" + "_code"/"~code" for both
+  function parsePart(p) {
+    p = p || '';
+    const i = p.search(/[_~]/);
+    if (i > 0) return { lat: unslug(p.slice(0, i)), ind: readName(p.slice(i)) };
+    const n = readName(p);
+    return /[^\x00-\x7F]/.test(n) ? { lat: '', ind: n } : { lat: n, ind: '' };
+  }
   function readHash() {
     let h = location.hash.slice(1);
     try { h = decodeURIComponent(h); } catch (e) { /* keep as is */ }
     const parts = h.includes('--to--') ? h.split('--to--') : h.split('.');
-    from = readName(parts[0]);
-    to = readName(parts[1] || '');
+    from = parsePart(parts[0]);
+    to = parsePart(parts[1] || '');
     linkLang = parts[2] && parts[2] !== 'mr' && I18N[parts[2]] ? parts[2] : '';
   }
   /* ---------- Names follow the selected script ----------
@@ -836,12 +869,137 @@
     }
     return String.fromCodePoint(...out).normalize('NFC');
   }
+  /* ---------- English-typed names → Devanagari (then on to any script) ----------
+     A name dictionary handles common names exactly; everything else goes through
+     spelling rules tuned for Indian names. The sender can correct the result. */
+  const LAT_WORDS = {
+    ashish: 'आशिष', aashish: 'आशिष', gauri: 'गौरी', gouri: 'गौरी', rahul: 'राहुल', priya: 'प्रिया', neha: 'नेहा',
+    amit: 'अमित', anil: 'अनिल', sunil: 'सुनील', akash: 'आकाश', aakash: 'आकाश', aarti: 'आरती', arti: 'आरती',
+    krishna: 'कृष्ण', lakshmi: 'लक्ष्मी', laxmi: 'लक्ष्मी', rashmi: 'रश्मी', mukta: 'मुक्ता', vishnu: 'विष्णु',
+    siddharth: 'सिद्धार्थ', sidharth: 'सिद्धार्थ', parth: 'पार्थ', aditya: 'आदित्य', rohan: 'रोहन', rohit: 'रोहित',
+    sachin: 'सचिन', sanjay: 'संजय', vijay: 'विजय', ajay: 'अजय', raj: 'राज', ravi: 'रवि', anita: 'अनिता',
+    sunita: 'सुनीता', kavita: 'कविता', pooja: 'पूजा', puja: 'पूजा', sneha: 'स्नेहा', shruti: 'श्रुती', swati: 'स्वाती',
+    smita: 'स्मिता', deepa: 'दीपा', deepak: 'दीपक', prakash: 'प्रकाश', suresh: 'सुरेश', ramesh: 'रमेश', mahesh: 'महेश',
+    ganesh: 'गणेश', rajesh: 'राजेश', mangesh: 'मंगेश', nilesh: 'निलेश', yogesh: 'योगेश', umesh: 'उमेश', dinesh: 'दिनेश',
+    mukesh: 'मुकेश', rakesh: 'राकेश', vikas: 'विकास', vivek: 'विवेक', nikhil: 'निखिल', kunal: 'कुणाल', pranav: 'प्रणव',
+    omkar: 'ओंकार', tejas: 'तेजस', shreyas: 'श्रेयस', aniket: 'अनिकेत', ankit: 'अंकित', ankita: 'अंकिता', sakshi: 'साक्षी',
+    pallavi: 'पल्लवी', madhuri: 'माधुरी', manisha: 'मनीषा', meena: 'मीना', seema: 'सीमा', sheetal: 'शीतल', shital: 'शीतल',
+    vaishali: 'वैशाली', ashwini: 'अश्विनी', aishwarya: 'ऐश्वर्या', gayatri: 'गायत्री', savita: 'सविता', sarita: 'सरिता',
+    nisha: 'निशा', asha: 'आशा', usha: 'उषा', maya: 'माया', radha: 'राधा', sita: 'सीता', seeta: 'सीता', geeta: 'गीता',
+    gita: 'गीता', rekha: 'रेखा', kiran: 'किरण', arun: 'अरुण', varun: 'वरुण', tarun: 'तरुण', karan: 'करण', arjun: 'अर्जुन',
+    shiva: 'शिव', shiv: 'शिव', ram: 'राम', shyam: 'श्याम', mohan: 'मोहन', gopal: 'गोपाल', madhav: 'माधव', keshav: 'केशव',
+    raghav: 'राघव', yash: 'यश', harsh: 'हर्ष', harsha: 'हर्षा', om: 'ओम', aarav: 'आरव', vihaan: 'विहान', ishaan: 'ईशान',
+    ishan: 'ईशान', anaya: 'अनाया', diya: 'दिया', riya: 'रिया', siya: 'सिया', anushka: 'अनुष्का', shreya: 'श्रेया',
+    tanvi: 'तन्वी', mrunal: 'मृणाल', mrinal: 'मृणाल', hrishikesh: 'हृषीकेश', rishikesh: 'ऋषिकेश', rishi: 'ऋषी',
+    dnyaneshwar: 'ज्ञानेश्वर', dnyanesh: 'ज्ञानेश', gyan: 'ज्ञान', vaibhav: 'वैभव', saurabh: 'सौरभ', gaurav: 'गौरव',
+    abhishek: 'अभिषेक', abhijit: 'अभिजित', prasad: 'प्रसाद', pradeep: 'प्रदीप', sandeep: 'संदीप', kuldeep: 'कुलदीप',
+    manoj: 'मनोज', anand: 'आनंद', milind: 'मिलिंद', mandar: 'मंदार', sameer: 'समीर', samir: 'समीर', nitin: 'नितीन',
+    sagar: 'सागर', swapnil: 'स्वप्निल', ketan: 'केतन', chetan: 'चेतन', shirish: 'शिरीष', satish: 'सतीश', girish: 'गिरीश',
+    manish: 'मनीष', ashok: 'अशोक', anupama: 'अनुपमा', supriya: 'सुप्रिया', archana: 'अर्चना', vandana: 'वंदना',
+    vishwas: 'विश्वास', jyoti: 'ज्योती', preeti: 'प्रीती', priti: 'प्रीती', kirti: 'कीर्ती', medha: 'मेधा', mrudula: 'मृदुला',
+    // family and titles
+    aai: 'आई', aaji: 'आजी', ajoba: 'आजोबा', aajoba: 'आजोबा', baba: 'बाबा', kaka: 'काका', kaku: 'काकू', mama: 'मामा',
+    mami: 'मामी', mavshi: 'मावशी', atya: 'आत्या', tai: 'ताई', dada: 'दादा', didi: 'दीदी', bhau: 'भाऊ', bhaiya: 'भैया',
+    bhabhi: 'भाभी', ji: 'जी', shri: 'श्री', shree: 'श्री', sri: 'श्री', smt: 'श्रीमती', sau: 'सौ', mr: 'श्री', mrs: 'सौ',
+    vedant: 'वेदांत', sushant: 'सुशांत', shrikant: 'श्रीकांत', pranali: 'प्रणाली', tushar: 'तुषार', sarthak: 'सार्थक',
+    shardul: 'शार्दूल', manasi: 'मानसी', mansi: 'मानसी', prajakta: 'प्राजक्ता', chaitanya: 'चैतन्य', ajinkya: 'अजिंक्य',
+    atharva: 'अथर्व', amruta: 'अमृता', amrita: 'अमृता', vrushali: 'वृषाली', bhushan: 'भूषण', santosh: 'संतोष', mayur: 'मयूर',
+    purva: 'पूर्वा', tanmay: 'तन्मय', chinmay: 'चिन्मय', ninad: 'निनाद', gargi: 'गार्गी', divya: 'दिव्या', vidya: 'विद्या',
+    sandhya: 'संध्या', kavya: 'काव्या', satya: 'सत्य', mahendra: 'महेंद्र', narendra: 'नरेंद्र', ravindra: 'रवींद्र',
+    devendra: 'देवेंद्र', jitendra: 'जितेंद्र', upendra: 'उपेंद्र', rajendra: 'राजेंद्र', surendra: 'सुरेंद्र',
+    shweta: 'श्वेता', sweta: 'श्वेता', kalpana: 'कल्पना', sapna: 'सपना', swapna: 'स्वप्ना', vinay: 'विनय',
+    vinayak: 'विनायक', siddhi: 'सिद्धी', riddhi: 'रिद्धी', nandini: 'नंदिनी', shalini: 'शालिनी', malini: 'मालिनी',
+    sonali: 'सोनाली', rupali: 'रूपाली', deepali: 'दीपाली', anjali: 'अंजली', harshada: 'हर्षदा', aparna: 'अपर्णा',
+    varsha: 'वर्षा', trupti: 'तृप्ती', ketaki: 'केतकी', kalyani: 'कल्याणी', rajashree: 'राजश्री', jayashree: 'जयश्री',
+    vijaya: 'विजया', sharad: 'शरद', sudhir: 'सुधीर', sudha: 'सुधा', uday: 'उदय', ulhas: 'उल्हास', vasant: 'वसंत',
+    anant: 'अनंत', avinash: 'अविनाश', abhay: 'अभय', akshay: 'अक्षय', akshata: 'अक्षता', ashutosh: 'आशुतोष',
+    aniruddha: 'अनिरुद्ध', bhagyashree: 'भाग्यश्री', chandrakant: 'चंद्रकांत', dattatray: 'दत्तात्रय', digambar: 'दिगंबर',
+    eknath: 'एकनाथ', hrushikesh: 'हृषीकेश', jayant: 'जयंत', kedar: 'केदार', madhukar: 'मधुकर', makarand: 'मकरंद',
+    nachiket: 'नचिकेत', prashant: 'प्रशांत', pushkar: 'पुष्कर', rajan: 'राजन', sanket: 'संकेत', shantanu: 'शंतनु',
+    shekhar: 'शेखर', sourabh: 'सौरभ', sumit: 'सुमित', sumeet: 'सुमीत', suyash: 'सुयश', tanay: 'तनय', vineet: 'विनीत',
+    vishal: 'विशाल', viraj: 'विराज', yatin: 'यतीन', rutuja: 'ऋतुजा', mrunal: 'मृणाल', ritu: 'ऋतु', rupa: 'रूपा',
+    dr: 'डॉ', family: 'कुटुंबीय', and: 'आणि',
+    // surnames
+    apte: 'आपटे', kulkarni: 'कुलकर्णी', deshpande: 'देशपांडे', deshmukh: 'देशमुख', joshi: 'जोशी', patil: 'पाटील',
+    pawar: 'पवार', shinde: 'शिंदे', jadhav: 'जाधव', gokhale: 'गोखले', sathe: 'साठे', bhide: 'भिडे', kale: 'काळे',
+    gadgil: 'गाडगीळ', sharma: 'शर्मा', verma: 'वर्मा', gupta: 'गुप्ता', singh: 'सिंह', patel: 'पटेल', shah: 'शाह',
+    desai: 'देसाई', mehta: 'मेहता', iyer: 'अय्यर', reddy: 'रेड्डी', rao: 'राव', nair: 'नायर', menon: 'मेनन',
+    naidu: 'नायडू', agarwal: 'अग्रवाल', jain: 'जैन', mishra: 'मिश्रा', pandey: 'पांडे', tiwari: 'तिवारी', yadav: 'यादव',
+    chavan: 'चव्हाण', mane: 'माने', bhosale: 'भोसले', kadam: 'कदम', gaikwad: 'गायकवाड', phadke: 'फडके', karve: 'कर्वे',
+    ranade: 'रानडे', tilak: 'टिळक', chitale: 'चितळे', dixit: 'दीक्षित', dikshit: 'दीक्षित', bapat: 'बापट', sawant: 'सावंत',
+    salunkhe: 'साळुंखे', naik: 'नाईक', nayak: 'नायक', kamat: 'कामत', shetty: 'शेट्टी', hegde: 'हेगडे', bhat: 'भट',
+    bhatt: 'भट्ट', khanna: 'खन्ना', kapoor: 'कपूर', malhotra: 'मल्होत्रा', chopra: 'चोप्रा', bose: 'बोस', das: 'दास',
+    sen: 'सेन', ghosh: 'घोष', mukherjee: 'मुखर्जी', banerjee: 'बॅनर्जी', chatterjee: 'चॅटर्जी', pillai: 'पिल्लई'
+  };
+  const LAT_CONS = [
+    ['ksh', 'क्ष'], ['chh', 'छ'], ['dny', 'ज्ञ'], ['jny', 'ज्ञ'], ['shr', 'श्र'],
+    ['kh', 'ख'], ['gh', 'घ'], ['ch', 'च'], ['jh', 'झ'], ['th', 'थ'], ['dh', 'ध'], ['ph', 'फ'], ['bh', 'भ'], ['sh', 'श'],
+    ['sr', 'श्र'], ['x', 'क्ष'], ['k', 'क'], ['g', 'ग'], ['c', 'क'], ['j', 'ज'], ['z', 'ज़'], ['t', 'त'], ['d', 'द'],
+    ['n', 'न'], ['p', 'प'], ['f', 'फ'], ['b', 'ब'], ['m', 'म'], ['y', 'य'], ['r', 'र'], ['l', 'ल'], ['v', 'व'], ['w', 'व'],
+    ['s', 'स'], ['h', 'ह'], ['q', 'क']
+  ];
+  const LAT_VOW = [            // [latin, independent, matra]
+    ['aa', 'आ', 'ा'], ['ai', 'ऐ', 'ै'], ['au', 'औ', 'ौ'], ['ou', 'औ', 'ौ'], ['ee', 'ई', 'ी'], ['ii', 'ई', 'ी'],
+    ['oo', 'ऊ', 'ू'], ['uu', 'ऊ', 'ू'], ['ei', 'ए', 'े'], ['a', 'अ', ''], ['i', 'इ', 'ि'], ['u', 'उ', 'ु'],
+    ['e', 'ए', 'े'], ['o', 'ओ', 'ो'], ['y', null, null]
+  ];
+  const CONJ_PAIRS = new Set(['kt', 'pt', 'gn', 'tm', 'tn', 'dm', 'kl', 'pl', 'gl', 'bl', 'ddh', 'gdh', 'dbh', 'ksh']);
+  function latinRun(run) {
+    const w = run.toLowerCase();
+    if (LAT_WORDS[w]) return LAT_WORDS[w];
+    const units = [];
+    for (let i = 0; i < w.length;) {
+      const v = LAT_VOW.find(([l, ind]) => ind && w.startsWith(l, i));
+      const c = LAT_CONS.find(([l]) => w.startsWith(l, i));
+      if (v && (!c || v[0].length >= c[0].length)) { units.push({ v: true, l: v[0], ind: v[1], m: v[2] }); i += v[0].length; }
+      else if (c) { units.push({ v: false, l: c[0], d: c[1] }); i += c[0].length; }
+      else i++;
+    }
+    let out = '', pending = null, initial = true, joined = false;
+    for (let idx = 0; idx < units.length; idx++) {
+      const u = units[idx], last = idx === units.length - 1;
+      if (u.v) {
+        if (pending) {
+          // Neha, Priya: a final "a" is long, except after a conjunct ending in r or v (Rajendra, Atharva)
+          if (last && u.l === 'a') out += (joined && ['r', 'v', 'w'].includes(pending.l)) ? '' : 'ा';
+          else if (last && u.l === 'i') out += 'ी';         // Gauri, Aarti: a final "i" is long
+          else out += u.m;
+        } else {
+          out += last && u.l === 'i' ? 'ई' : u.ind;
+        }
+        pending = null; initial = false; joined = false;
+        continue;
+      }
+      // consonant + "ru" is the vowel ृ in Marathi-style spelling (Amruta, Vrushali, Trupti)
+      if (pending && u.l === 'r' && units[idx + 1] && units[idx + 1].v && units[idx + 1].l === 'u') {
+        out += 'ृ'; idx++; pending = null; initial = false; joined = false;
+        continue;
+      }
+      joined = false;
+      if (pending) {
+        const P = pending.l, C = u.l, c0 = C[0];
+        const nasalOK = !['y', 'r', 'v', 'w', 'h', 'n', 'm'].includes(c0);
+        if ((P === 'n' || P === 'm') && !initial && nasalOK) {
+          out = out.slice(0, -1) + 'ं';                    // Ankit, Sanjay, Mangesh
+        } else if (initial || P === 'r' || ['r', 'y', 'v', 'w'].includes(c0) || P === C ||
+                   (['s', 'sh'].includes(P) && ['t', 'th', 'n', 'm', 'p', 'k', 'v'].includes(C)) || CONJ_PAIRS.has(P + C)) {
+          out += '्'; joined = true;                         // Priya, Arjun, Siddharth, Smita
+        }
+      }
+      out += u.d;
+      pending = u;
+    }
+    return out;
+  }
+  const latinToDeva = word => word.replace(/[A-Za-z]+/g, latinRun);
+
   function displayName(name) {
     const tgt = SCRIPT_BASE[lang];
-    if (!name || !tgt || !/[\u0900-\u097F\u0A80-\u0AFF\u0C00-\u0C7F\u0C80-\u0CFF]/.test(name)) return name;
+    if (!name || !tgt) return name;
     return name.split(/(\s+)/).map(w => {
       if (!w || /^\s+$/.test(w)) return w;
       if (w === 'व') return (lang === 'mr' || lang === 'hi') ? w : CONNECT_TO[lang];
+      if (/[A-Za-z]/.test(w) && !/[^\x00-\x7F]/.test(w)) w = latinToDeva(w);   // English-typed word
       if (CONNECTORS.includes(w)) return CONNECT_TO[lang];
       if (FAMILY.includes(w)) return FAMILY_TO[lang];
       return convertWord(w, tgt);
@@ -849,7 +1007,7 @@
   }
 
   function render() {
-    const f = displayName(fromName()), t = displayName(to);
+    const f = shown(from) || defaultFrom(), t = shown(to);
     $('#sentBy').textContent = tr('sentBy')(f);
     $('#forLine').textContent = t ? tr('forLine')(t) : '';
     $('#forLine').hidden = !t;
@@ -1396,14 +1554,37 @@
   const composer = $('#composer');
   const BASE = location.href.split('#')[0];
   const clean = v => v.trim().replace(/\s+/g, ' ');
+  const isLatin = v => /[A-Za-z]/.test(v) && !/[^\x00-\x7F]/.test(v);
+  // what the sender typed, as a {lat, ind} name
+  function typedName(main, sp) {
+    const m = clean(main.value);
+    if (!m) return { lat: '', ind: '' };
+    if (!isLatin(m)) return { lat: '', ind: m };
+    const fixed = sp.dataset.edited === '1' ? clean(sp.value) : '';
+    return { lat: m, ind: fixed && /[^\x00-\x7F]/.test(fixed) ? fixed : '' };
+  }
+  function partOf(n) {
+    if (n.lat && n.ind) return slug(n.lat) + slug(n.ind);   // e.g. Rahul_CKUdnj9
+    return slug(n.lat || n.ind);
+  }
   const currentSlug = () => {
-    const f = slug($('#fromIn').value), t = slug($('#toIn').value);
+    const f = partOf(typedName($('#fromIn'), $('#fromSp'))), t = partOf(typedName($('#toIn'), $('#toSp')));
     if (lang !== 'mr') return `${f}.${t}.${lang}`;
     return t ? `${f}.${t}` : f;
   };
   const fullLink = () => { const s = currentSlug(); return s ? `${BASE}#${s}` : BASE; };
-  const nameFrom = () => clean($('#fromIn').value) || defaultFrom();
-  const shareText = () => tr('shareText')(displayName(nameFrom()), fullLink());
+  const nameFrom = () => shown(typedName($('#fromIn'), $('#fromSp'))) || defaultFrom();
+  const shareText = () => tr('shareText')(nameFrom(), fullLink());
+  // the "spelling" box under a name typed in English: filled automatically, editable
+  function updateSpell(main, sp, row) {
+    const m = clean(main.value);
+    const show = lang !== 'en' && isLatin(m);
+    row.hidden = !show;
+    if (!show) return;
+    sp.lang = lang;
+    if (document.activeElement === sp) return;
+    sp.value = sp.dataset.edited === '1' ? displayName(sp.value) : displayName(m);
+  }
   let copyTimer;
   function resetCopy() {
     clearTimeout(copyTimer);
@@ -1411,23 +1592,32 @@
     $('#copyLabel').textContent = tr('copy');
   }
   function updateShare() {
-    const t = clean($('#toIn').value);
-    $('#pvTo').textContent = t ? tr('dear')(displayName(t)) : '';
+    updateSpell($('#fromIn'), $('#fromSp'), $('#fromSpRow'));
+    updateSpell($('#toIn'), $('#toSp'), $('#toSpRow'));
+    const t = shown(typedName($('#toIn'), $('#toSp')));
+    $('#pvTo').textContent = t ? tr('dear')(t) : '';
     $('#pvTo').hidden = !t;
-    $('#pvFrom').textContent = tr('sentBy')(displayName(nameFrom()));
+    $('#pvFrom').textContent = tr('sentBy')(nameFrom());
     $('#suffix').textContent = fullLink();
     $('#wa').href = 'https://wa.me/?text=' + encodeURIComponent(shareText());
     resetCopy();
   }
   $('#make').addEventListener('click', () => {
     track('share-opened', 'Share opened');
-    $('#fromIn').value = from;
-    $('#toIn').value = '';
+    $('#fromIn').value = from.lat || from.ind;
+    $('#fromSp').value = from.lat && from.ind ? from.ind : '';
+    $('#fromSp').dataset.edited = from.lat && from.ind ? '1' : '';
+    $('#toIn').value = ''; $('#toSp').value = ''; $('#toSp').dataset.edited = '';
     updateShare();
     composer.showModal();
+    centerLang(lang);                                  // before the strip can snap to its first entry
+    requestAnimationFrame(() => centerLang(lang));
   });
-  $('#fromIn').addEventListener('input', updateShare);
-  $('#toIn').addEventListener('input', updateShare);
+  ['from', 'to'].forEach(w => {
+    $('#' + w + 'In').addEventListener('input', () => { $('#' + w + 'Sp').dataset.edited = ''; updateShare(); });
+    $('#' + w + 'Sp').addEventListener('input', e => { e.target.dataset.edited = clean(e.target.value) ? '1' : ''; updateShare(); });
+    $('#' + w + 'Sp').addEventListener('blur', updateShare);
+  });
   async function copyLink() {
     const text = fullLink();
     let ok = false;
@@ -1471,7 +1661,7 @@
     document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = tr(el.dataset.i18nPh); });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', tr(el.dataset.i18nAria)); });
     markLang(lang);
-    if (!fromSlider) centerLang(lang, smooth);
+    centerLang(lang, smooth, fromSlider);
     $('#bigDiya').setAttribute('aria-label', tr(lit ? 'diyaLit' : 'lightDiya'));
     $('#muteLabel').textContent = tr(muted ? 'soundOff' : 'soundOn');
     render();
@@ -1479,53 +1669,60 @@
     if (save) { try { localStorage.setItem('diwali-lang', lang); } catch (e) { /* private mode */ } }
     requestAnimationFrame(restMatch);
   }
-  const langTrack = $('.lang-track');
-  const langBtns = [...langTrack.querySelectorAll('button')];
+  $('#sheetTrack').innerHTML = $('.controls .lang-track').innerHTML;
+  const tracks = [...document.querySelectorAll('.lang-track')];
+  const btnsOf = t => [...t.querySelectorAll('button')];
   function markLang(code) {
-    langBtns.forEach(b => {
+    tracks.forEach(t => btnsOf(t).forEach(b => {
       const on = b.dataset.lang === code;
       b.classList.toggle('active', on);
       b.setAttribute('aria-checked', String(on));
       b.tabIndex = on ? 0 : -1;
+    }));
+  }
+  function centerLang(code, smooth, skip) {
+    tracks.forEach(t => {
+      if (t === skip || !t.clientWidth) return;
+      t._quiet = performance.now() + 450;            // ignore the scroll events our own centring causes
+      const b = btnsOf(t).find(x => x.dataset.lang === code);
+      if (b) t.scrollTo({ left: b.offsetLeft + b.offsetWidth / 2 - t.clientWidth / 2, behavior: smooth ? 'smooth' : 'auto' });
     });
   }
-  function centerLang(code, smooth) {
-    const b = langBtns.find(x => x.dataset.lang === code);
-    if (!b) return;
-    const left = b.offsetLeft + b.offsetWidth / 2 - langTrack.clientWidth / 2;
-    langTrack.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
-  }
-  function nearestLang() {
-    const mid = langTrack.scrollLeft + langTrack.clientWidth / 2;
-    let best = langBtns[0], d = Infinity;
-    for (const b of langBtns) {
+  function nearestLang(t) {
+    const mid = t.scrollLeft + t.clientWidth / 2;
+    let best = null, d = Infinity;
+    for (const b of btnsOf(t)) {
       const dd = Math.abs(b.offsetLeft + b.offsetWidth / 2 - mid);
       if (dd < d) { d = dd; best = b; }
     }
     return best.dataset.lang;
   }
-  function chooseLang(code, how) {
+  function chooseLang(code, how, t) {
     if (code === lang) return;
-    setLang(code, true, how === 'swipe', how !== 'swipe');
+    setLang(code, true, how === 'swipe' ? t : null, how !== 'swipe');
     track('language-' + lang, 'Switched to ' + I18N[lang].name);
   }
-  let settleTimer;
-  function settle() { clearTimeout(settleTimer); chooseLang(nearestLang(), 'swipe'); }
-  langTrack.addEventListener('scroll', () => {
-    markLang(nearestLang());                          // highlight follows the finger
-    clearTimeout(settleTimer);
-    settleTimer = setTimeout(settle, 160);            // switch language once the strip settles
-  }, { passive: true });
-  if ('onscrollend' in window) langTrack.addEventListener('scrollend', settle);
-  langBtns.forEach(b => b.addEventListener('click', () => chooseLang(b.dataset.lang, 'tap')));
-  langTrack.addEventListener('keydown', e => {
-    const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
-    if (!step) return;
-    e.preventDefault();
-    const i = langBtns.findIndex(b => b.dataset.lang === lang);
-    const next = langBtns[Math.max(0, Math.min(langBtns.length - 1, i + step))];
-    chooseLang(next.dataset.lang, 'key');
-    next.focus({ preventScroll: true });
+  tracks.forEach(t => {
+    let timer;
+    const quiet = () => !t.clientWidth || performance.now() < (t._quiet || 0);
+    const settle = () => { clearTimeout(timer); if (!quiet()) chooseLang(nearestLang(t), 'swipe', t); };
+    t.addEventListener('scroll', () => {
+      if (quiet()) return;
+      markLang(nearestLang(t));                        // highlight follows the finger
+      clearTimeout(timer);
+      timer = setTimeout(settle, 160);                 // switch language once the strip settles
+    }, { passive: true });
+    if ('onscrollend' in window) t.addEventListener('scrollend', settle);
+    btnsOf(t).forEach(b => b.addEventListener('click', () => chooseLang(b.dataset.lang, 'tap', t)));
+    t.addEventListener('keydown', e => {
+      const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const list = btnsOf(t), i = list.findIndex(b => b.dataset.lang === lang);
+      const next = list[Math.max(0, Math.min(list.length - 1, i + step))];
+      chooseLang(next.dataset.lang, 'key', t);
+      next.focus({ preventScroll: true });
+    });
   });
 
   window.addEventListener('hashchange', () => { readHash(); if (linkLang) setLang(linkLang); else render(); });
